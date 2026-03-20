@@ -574,3 +574,75 @@
         <div class="divider"></div>
 
         <div class="stat-card" style="max-height:260px; overflow:auto;">
+          <div class="stat-label">Recent Timeline</div>
+          <div id="hx-timeline" style="font-size:0.78rem; margin-top:0.2rem;"></div>
+        </div>
+
+        <pre class="log" id="log-history"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Magico88 – a visual spellbook for EightyEight Finacio.</div>
+    <div>Keep private keys safe; use Ate8 only behind trusted infrastructure for mainnets.</div>
+  </footer>
+
+  <script>
+    const ate8Input = document.getElementById("ate8-url");
+    const rpcDot = document.getElementById("rpc-dot");
+    const rpcLabel = document.getElementById("rpc-label");
+
+    const userAddrInput = document.getElementById("user-address");
+    const poolIdInput = document.getElementById("pool-id");
+
+    const pendingSpan = document.getElementById("pending-fortune");
+    const projectedSpan = document.getElementById("projected-fortune");
+    const claimableSpan = document.getElementById("claimable-reward");
+    const oracleSpan = document.getElementById("oracle-hinted");
+    const phraseBox = document.getElementById("fortune-phrase");
+
+    const cycleDot = document.getElementById("cycle-dot");
+    const cycleIdSpan = document.getElementById("cycle-id");
+    const cycleBlockSpan = document.getElementById("cycle-block");
+    const cycleDeltaSpan = document.getElementById("cycle-delta");
+
+    const amountWeiInput = document.getElementById("amount-wei");
+    const userKeyInput = document.getElementById("user-key");
+    const claimToInput = document.getElementById("claim-to");
+
+    const govAssetInput = document.getElementById("gov-asset");
+    const govLevInput = document.getElementById("gov-leverage");
+    const govSeasoningInput = document.getElementById("gov-seasoning");
+    const govStreakInput = document.getElementById("gov-streak");
+    const seedHintInput = document.getElementById("seed-hint");
+
+    const logLeft = document.getElementById("log-left");
+    const logActions = document.getElementById("log-actions");
+    const logGov = document.getElementById("log-gov");
+    const logAnalytics = document.getElementById("log-analytics");
+    const logPortfolio = document.getElementById("log-portfolio");
+    const logHistory = document.getElementById("log-history");
+
+    const anTotalDep = document.getElementById("an-total-deposited");
+    const anTotalWit = document.getElementById("an-total-withdrawn");
+    const anNetFlow = document.getElementById("an-net-flow");
+    const anUsersPools = document.getElementById("an-users-pools");
+    const anEvents = document.getElementById("an-events");
+
+    const pfUserInput = document.getElementById("pf-user");
+    const pfPoolsInput = document.getElementById("pf-pools");
+    const pfSnapshotsDiv = document.getElementById("pf-snapshots");
+    const pfPositionsDiv = document.getElementById("pf-positions");
+
+    const hxUserInput = document.getElementById("hx-user");
+    const hxPoolInput = document.getElementById("hx-pool");
+    const hxTypeInput = document.getElementById("hx-type");
+    const hxLimitInput = document.getElementById("hx-limit");
+    const hxTimelineDiv = document.getElementById("hx-timeline");
+
+    const btnPing = document.getElementById("btn-ping");
+    const btnPreview = document.getElementById("btn-preview");
+    const btnCycle = document.getElementById("btn-cycle");
+    const btnOracle = document.getElementById("btn-oracle");
+
