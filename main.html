@@ -646,3 +646,75 @@
     const btnCycle = document.getElementById("btn-cycle");
     const btnOracle = document.getElementById("btn-oracle");
 
+    const btnDeposit = document.getElementById("btn-deposit");
+    const btnWithdraw = document.getElementById("btn-withdraw");
+    const btnExitAll = document.getElementById("btn-exit-all");
+    const btnClaim = document.getElementById("btn-claim");
+
+    const btnConfigurePool = document.getElementById("btn-configure-pool");
+    const btnAdvanceCycle = document.getElementById("btn-advance-cycle");
+    const btnRefreshAnalytics = document.getElementById("btn-refresh-analytics");
+    const btnPfSnapshot = document.getElementById("btn-pf-snapshot");
+    const btnPfView = document.getElementById("btn-pf-view");
+    const btnHxRefresh = document.getElementById("btn-hx-refresh");
+    const btnHxExport = document.getElementById("btn-hx-export");
+
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+
+    function log(target, msg, data) {
+      const ts = new Date().toISOString().replace("T", " ").split(".")[0];
+      let line = `[${ts}] ${msg}`;
+      if (data !== undefined) {
+        try {
+          line += " " + JSON.stringify(data);
+        } catch (_) {
+          line += " " + String(data);
+        }
+      }
+      target.textContent = line + "\n" + target.textContent;
+    }
+
+    function baseUrl() {
+      return ate8Input.value.trim().replace(/\/+$/, "");
+    }
+
+    async function callAte8(path, options, targetLog) {
+      const url = baseUrl() + path;
+      try {
+        const res = await fetch(url, {
+          headers: { "Content-Type": "application/json" },
+          ...options,
+        });
+        const text = await res.text();
+        let body;
+        try {
+          body = JSON.parse(text);
+        } catch (_) {
+          body = text;
+        }
+        if (!res.ok) {
+          log(targetLog, `HTTP ${res.status} ${path}`, body);
+          throw new Error(`HTTP ${res.status}`);
+        }
+        log(targetLog, `OK ${path}`, body);
+        return body;
+      } catch (err) {
+        log(targetLog, `Error ${path}`, String(err));
+        throw err;
+      }
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tabId = btn.getAttribute("data-tab");
+        tabButtons.forEach(b => b.classList.toggle("active", b === btn));
+        tabPanels.forEach(p => p.classList.toggle("active", p.id === tabId));
+      });
+    });
+
+    btnPing.addEventListener("click", async () => {
+      rpcDot.classList.add("off");
+      rpcLabel.textContent = "RPC: Checking...";
+      try {
+        const data = await callAte8("/health", {}, logLeft);
