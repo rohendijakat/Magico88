@@ -718,3 +718,75 @@
       rpcLabel.textContent = "RPC: Checking...";
       try {
         const data = await callAte8("/health", {}, logLeft);
+        rpcDot.classList.remove("off");
+        rpcLabel.textContent = `RPC OK – Block ${data.block}`;
+      } catch (_) {
+        rpcDot.classList.add("off");
+        rpcLabel.textContent = "RPC: Unreachable";
+      }
+    });
+
+    btnPreview.addEventListener("click", async () => {
+      const user = userAddrInput.value.trim();
+      const poolId = Number(poolIdInput.value || 0);
+      if (!user || !user.startsWith("0x")) {
+        alert("Enter a valid user address.");
+        return;
+      }
+      try {
+        const q = `?user=${encodeURIComponent(user)}&pool_id=${poolId}`;
+        const data = await callAte8("/fortune/preview" + q, {}, logLeft);
+        pendingSpan.textContent = data.pending_fortune;
+        projectedSpan.textContent = data.projected_fortune;
+        claimableSpan.textContent = data.claimable_reward;
+        phraseBox.textContent = buildPhrase(
+          Number(data.pending_fortune || 0),
+          Number(data.projected_fortune || 0),
+          Number(data.claimable_reward || 0)
+        );
+      } catch (_) {}
+    });
+
+    btnCycle.addEventListener("click", async () => {
+      try {
+        const data = await callAte8("/fortune/cycle", {}, logLeft);
+        cycleIdSpan.textContent = data.id;
+        cycleBlockSpan.textContent = data.lucky_block;
+        cycleDeltaSpan.textContent = data.fortune_delta;
+        cycleDot.classList.remove("off");
+      } catch (_) {
+        cycleDot.classList.add("off");
+      }
+    });
+
+    btnOracle.addEventListener("click", async () => {
+      const user = userAddrInput.value.trim();
+      const poolId = Number(poolIdInput.value || 0);
+      if (!user || !user.startsWith("0x")) {
+        alert("Enter a valid user address.");
+        return;
+      }
+      const seed = Math.floor(Date.now() / 1000);
+      try {
+        const q = `?user=${encodeURIComponent(user)}&pool_id=${poolId}&oracle_seed=${seed}`;
+        const data = await callAte8("/fortune/oracle-hint" + q, {}, logLeft);
+        oracleSpan.textContent = data.hinted_luck;
+      } catch (_) {}
+    });
+
+    btnDeposit.addEventListener("click", async () => {
+      const poolId = Number(poolIdInput.value || 0);
+      const amount = Number(amountWeiInput.value || 0);
+      const key = userKeyInput.value.trim();
+      if (!key || !key.startsWith("0x")) {
+        alert("Provide a user private key.");
+        return;
+      }
+      try {
+        await callAte8(
+          "/user/deposit",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              pool_id: poolId,
+              amount_wei: amount,
