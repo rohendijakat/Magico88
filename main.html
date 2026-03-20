@@ -1006,3 +1006,75 @@
             body: JSON.stringify({ user: addr, pool_ids: ids }),
           },
           logPortfolio
+        );
+        renderPortfolioPositions(data || []);
+      } catch (_) {}
+    });
+
+    function renderPoolSnapshots(snaps) {
+      if (!snaps.length) {
+        pfSnapshotsDiv.textContent = "No snapshots.";
+        return;
+      }
+      pfSnapshotsDiv.innerHTML = "";
+      snaps.forEach(s => {
+        const div = document.createElement("div");
+        const active = s.active ? "active" : "inactive";
+        div.textContent = `Pool ${s.poolId} (${active}) asset=${s.asset.slice(0, 10)}… lev=${s.leverageFactorBps} cap=${s.poolCap} min=${s.minDeposit} allowlisted=${s.allowlistedOnly}`;
+        pfSnapshotsDiv.appendChild(div);
+      });
+    }
+
+    function renderPortfolioPositions(views) {
+      if (!views.length) {
+        pfPositionsDiv.textContent = "No positions.";
+        return;
+      }
+      pfPositionsDiv.innerHTML = "";
+      views.forEach(v => {
+        const div = document.createElement("div");
+        div.textContent = `Pool ${v.poolId}: principal=${v.principal} fortune=${v.fortunePoints}+${v.pendingFortune} claimed=${v.fortuneClaimed} claimableReward=${v.claimableReward}`;
+        pfPositionsDiv.appendChild(div);
+      });
+    }
+
+    btnHxRefresh.addEventListener("click", async () => {
+      const q = buildHistoryQuery();
+      try {
+        const data = await callAte8("/analytics/events" + q, {}, logHistory);
+        renderHistoryTimeline((data && data.events) ? data.events : []);
+      } catch (_) {}
+    });
+
+    btnHxExport.addEventListener("click", async () => {
+      const q = buildHistoryQuery();
+      const url = baseUrl() + "/analytics/events.csv" + q;
+      try {
+        log(logHistory, "Opening CSV export", { url });
+        window.open(url, "_blank");
+      } catch (e) {
+        log(logHistory, "Failed to open CSV export", String(e));
+      }
+    });
+
+    function buildHistoryQuery() {
+      let user = hxUserInput.value.trim();
+      if (!user) {
+        user = userAddrInput.value.trim();
+      }
+      const poolRaw = String(hxPoolInput.value || "").trim();
+      const typeRaw = hxTypeInput.value.trim();
+      const limit = Number(hxLimitInput.value || 100);
+
+      const params = new URLSearchParams();
+      if (user && user.startsWith("0x")) params.set("user", user);
+      if (poolRaw !== "") params.set("pool_id", poolRaw);
+      if (typeRaw) params.set("event_type", typeRaw);
+      params.set("limit", String(Math.max(1, Math.min(500, limit))));
+      params.set("offset", "0");
+
+      return "?" + params.toString();
+    }
+
+    function renderHistoryTimeline(events) {
+      if (!events.length) {
