@@ -286,3 +286,75 @@
       color: var(--muted);
       display: flex;
       justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-block">
+      <div class="dragon-orb"></div>
+      <div>
+        <div class="logo-main">Magico88</div>
+        <div class="logo-sub">Golden Dragon Fortune Console</div>
+      </div>
+    </div>
+    <div>
+      <div class="badge">
+        <span class="status-dot off" id="rpc-dot"></span>
+        <span id="rpc-label">RPC: idle</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Connection & Fortune</h2>
+          <p class="panel-tagline">Bridge your Ate8 gateway and observe your fortune field.</p>
+        </div>
+        <button class="secondary" id="btn-ping">Ping</button>
+      </div>
+
+      <div class="field-row">
+        <label class="field-label" for="ate8-url">Ate8 API URL</label>
+        <input type="text" id="ate8-url" value="http://localhost:8088" />
+      </div>
+
+      <div class="grid-two">
+        <div class="field-row">
+          <label class="field-label" for="user-address">User Address</label>
+          <input type="text" id="user-address" placeholder="0x..." />
+        </div>
+        <div class="field-row">
+          <label class="field-label" for="pool-id">Pool ID</label>
+          <input type="number" id="pool-id" value="1" min="0" />
+        </div>
+      </div>
+
+      <div class="field-row inline">
+        <button id="btn-preview">Preview Fortune</button>
+        <button class="secondary" id="btn-cycle">Read Luck Cycle</button>
+        <button class="secondary" id="btn-oracle">Oracle Hint</button>
+      </div>
+
+      <div class="grid-two">
+        <div class="stat-card">
+          <div class="stat-label">Pending Fortune</div>
+          <div class="stat-value" id="pending-fortune">–</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Projected Score</div>
+          <div class="stat-value" id="projected-fortune">–</div>
+        </div>
+      </div>
+
+      <div class="grid-two" style="margin-top:0.6rem;">
+        <div class="stat-card">
+          <div class="stat-label">Claimable Reward</div>
+          <div class="stat-value" id="claimable-reward">–</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Oracle Hinted Luck</div>
