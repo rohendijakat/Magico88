@@ -934,3 +934,75 @@
       if (!events.length) {
         anEvents.textContent = "No activity recorded yet.";
         return;
+      }
+      anEvents.innerHTML = "";
+      events.slice(0, 24).forEach(ev => {
+        const div = document.createElement("div");
+        const timeStr = new Date(ev.ts * 1000).toLocaleTimeString();
+        div.textContent = `[${timeStr}] ${ev.event_type} user=${ev.user.slice(0, 10)}… pool=${ev.pool_id} amount=${ev.amount}`;
+        anEvents.appendChild(div);
+      });
+    }
+
+    function buildPhrase(pending, projected, claimable) {
+      if (!projected) {
+        return "The dragon senses no fortune yet. Seed a position to begin the dance.";
+      }
+      const ratio = projected ? pending / projected : 0;
+      const claimRatio = projected ? claimable / projected : 0;
+      if (ratio > 0.68 && claimRatio > 0.3) {
+        return "Golden scales blaze bright – fresh fortune and ripe claimable yield coil around your stake.";
+      }
+      if (ratio > 0.35) {
+        return "Luck streams steadily through your pool. A gentle turn of the cycle may magnify it.";
+      }
+      if (claimRatio > 0.45) {
+        return "Your claimable fortune glows quietly in the vault. The dragon urges a measured harvest.";
+      }
+      return "Your fortune sleeps deeper than the surface ripples. Patience may invite a stronger tide.";
+    }
+
+    logLeft.textContent = "Welcome to Magico88.\nPoint this UI at your Ate8 API to begin.\n";
+    logActions.textContent = "Actions and transaction results will appear here.\n";
+    logGov.textContent = "Governance calls through Ate8 env keys; configure env carefully on mainnet.\n";
+    logAnalytics.textContent = "Press 'Refresh Summary' to read aggregated activity.\n";
+
+    btnPfSnapshot.addEventListener("click", async () => {
+      const idsRaw = pfPoolsInput.value.trim();
+      if (!idsRaw) {
+        alert("Enter at least one pool id.");
+        return;
+      }
+      try {
+        const data = await callAte8(
+          "/pools/snapshot?ids=" + encodeURIComponent(idsRaw),
+          {},
+          logPortfolio
+        );
+        renderPoolSnapshots(data || []);
+      } catch (_) {}
+    });
+
+    btnPfView.addEventListener("click", async () => {
+      let addr = pfUserInput.value.trim();
+      if (!addr) {
+        addr = userAddrInput.value.trim();
+      }
+      if (!addr || !addr.startsWith("0x")) {
+        alert("Provide a portfolio address or set User Address.");
+        return;
+      }
+      const idsRaw = pfPoolsInput.value.trim();
+      if (!idsRaw) {
+        alert("Enter pool ids.");
+        return;
+      }
+      const ids = idsRaw.split(",").map(s => Number(s.trim())).filter(n => !isNaN(n));
+      try {
+        const data = await callAte8(
+          "/portfolio/view",
+          {
+            method: "POST",
+            body: JSON.stringify({ user: addr, pool_ids: ids }),
+          },
+          logPortfolio
