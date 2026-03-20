@@ -430,3 +430,75 @@
           </div>
           <div class="field-row">
             <label class="field-label" for="gov-leverage">Leverage (bps)</label>
+            <input type="number" id="gov-leverage" value="1000" min="100" max="88888" />
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="field-row">
+            <label class="field-label" for="gov-seasoning">Seasoning Factor</label>
+            <input type="number" id="gov-seasoning" value="0" min="0" />
+          </div>
+          <div class="field-row">
+            <label class="field-label" for="gov-streak">Streak Bonus (bps)</label>
+            <input type="number" id="gov-streak" value="0" min="0" max="8888" />
+          </div>
+        </div>
+
+        <div class="field-row inline">
+          <label class="field-label" style="margin-bottom:0;">Pool Active?</label>
+          <button class="secondary" id="btn-configure-pool">Configure / Update</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field-row inline">
+          <label class="field-label" style="margin-bottom:0;">Advance Luck Cycle</label>
+          <input type="number" id="seed-hint" value="0" style="max-width:120px;" />
+          <button class="secondary" id="btn-advance-cycle">Advance</button>
+        </div>
+
+        <div class="grid-two" style="margin-top:0.6rem;">
+          <div class="stat-card">
+            <div class="stat-label">Cycle ID</div>
+            <div class="stat-value" id="cycle-id">–</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Lucky Block</div>
+            <div class="stat-value" id="cycle-block">–</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="margin-top:0.6rem;">
+          <div class="stat-label">Fortune Delta</div>
+          <div class="stat-value" id="cycle-delta">–</div>
+        </div>
+
+        <pre class="log" id="log-gov"></pre>
+      </div>
+
+      <div class="tab-panel" id="tab-analytics">
+        <div class="field-row inline">
+          <button class="secondary" id="btn-refresh-analytics">Refresh Summary</button>
+        </div>
+
+        <div class="grid-two" style="margin-top:0.4rem;">
+          <div class="stat-card">
+            <div class="stat-label">Total Deposited</div>
+            <div class="stat-value" id="an-total-deposited">–</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Withdrawn</div>
+            <div class="stat-value" id="an-total-withdrawn">–</div>
+          </div>
+        </div>
+
+        <div class="grid-two" style="margin-top:0.4rem;">
+          <div class="stat-card">
+            <div class="stat-label">Net Flow</div>
+            <div class="stat-value" id="an-net-flow">–</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Unique Users / Pools</div>
+            <div class="stat-value" id="an-users-pools">–</div>
+          </div>
