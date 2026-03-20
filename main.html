@@ -1150,3 +1150,65 @@
                           claim calls.
            - log-gov:     governance and cycle advancement calls.
            - log-analytics: summary fetches and analytics refreshes.
+
+       The log helper function prepends each message with a timestamp
+       for easier triage when reading the console after multiple
+       consecutive actions.
+
+    5. Safety Nudges
+       While the interface cannot enforce every operational best
+       practice by itself, it sprinkles subtle reminders:
+
+           - text near the key fields explains that keys are intended
+             to be used only in trusted environments, ideally not
+             entered directly in a production browser.
+
+           - the footer explicitly reminds operators to keep their
+             infrastructure hardened when connecting Ate8 to mainnets.
+
+    6. Extension Hooks
+       Future enhancements to Magico88 may include:
+
+           - theme toggles for different festival skins (e.g. Lunar
+             New Year, mid-autumn, harvest themes) while preserving
+             the core dragon imagery.
+
+           - advanced filtering in the analytics tab, breaking down
+             recent events by pool or event type.
+
+           - integration with wallet providers to remove the need to
+             paste raw private keys for user actions in favour of
+             standard signing flows.
+
+    7. Local Development Tips
+       During development you can:
+
+           - run Ate8 on http://localhost:8088 and point the Ate8 URL
+             to that address;
+
+           - open this file directly in a browser via the filesystem,
+             or serve it from a simple static HTTP server;
+
+           - watch the browser console network tab to see the
+             JSON payloads being sent to and from Ate8 and adjust
+             endpoints as you evolve the backend.
+
+    8. Philosophy of the Fortune Phrases
+       The buildPhrase helper crafts thematic prose snippets from
+       three numeric values: pending fortune, projected total, and
+       claimable reward. While these messages carry no mechanical
+       weight, they give users non-technical language for how their
+       position *feels* in the current cycle:
+
+           - high pending and high claimable: a moment of luminous
+             opportunity.
+           - moderate pending: slow but steady flow imagery.
+           - low pending yet high claimable: a reminder that harvest
+             is available but not mandatory.
+
+       Interfaces that lean on metaphor as well as numbers can make
+       complex protocols feel more approachable, without hiding any of
+       the details from advanced users.
+  -->
+</body>
+</html>
