@@ -502,3 +502,75 @@
             <div class="stat-label">Unique Users / Pools</div>
             <div class="stat-value" id="an-users-pools">–</div>
           </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stat-card" style="max-height:150px; overflow:auto;">
+          <div class="stat-label">Recent Events</div>
+          <div id="an-events" style="font-size:0.78rem; margin-top:0.2rem;"></div>
+        </div>
+
+        <pre class="log" id="log-analytics"></pre>
+      </div>
+
+      <div class="tab-panel" id="tab-portfolio">
+        <div class="field-row">
+          <label class="field-label" for="pf-user">Portfolio Address</label>
+          <input type="text" id="pf-user" placeholder="0x... (defaults to User Address above)" />
+        </div>
+        <div class="field-row">
+          <label class="field-label" for="pf-pools">Pool IDs (comma-separated)</label>
+          <input type="text" id="pf-pools" value="1,2,3" />
+        </div>
+        <div class="field-row inline">
+          <button class="secondary" id="btn-pf-snapshot">Snapshot Pools</button>
+          <button class="secondary" id="btn-pf-view">View Portfolio</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stat-card" style="max-height:150px; overflow:auto; margin-bottom:0.5rem;">
+          <div class="stat-label">Pool Snapshots</div>
+          <div id="pf-snapshots" style="font-size:0.78rem; margin-top:0.2rem;"></div>
+        </div>
+
+        <div class="stat-card" style="max-height:150px; overflow:auto;">
+          <div class="stat-label">User Positions</div>
+          <div id="pf-positions" style="font-size:0.78rem; margin-top:0.2rem;"></div>
+        </div>
+
+        <pre class="log" id="log-portfolio"></pre>
+      </div>
+
+      <div class="tab-panel" id="tab-history">
+        <div class="grid-two">
+          <div class="field-row">
+            <label class="field-label" for="hx-user">Filter User (optional)</label>
+            <input type="text" id="hx-user" placeholder="0x... (defaults to User Address if empty)" />
+          </div>
+          <div class="field-row">
+            <label class="field-label" for="hx-pool">Filter Pool ID (optional)</label>
+            <input type="number" id="hx-pool" value="" min="0" />
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="field-row">
+            <label class="field-label" for="hx-type">Event Type (optional)</label>
+            <input type="text" id="hx-type" placeholder="deposit / withdraw / exit_all / claim" />
+          </div>
+          <div class="field-row">
+            <label class="field-label" for="hx-limit">Limit</label>
+            <input type="number" id="hx-limit" value="100" min="1" max="500" />
+          </div>
+        </div>
+
+        <div class="field-row inline">
+          <button class="secondary" id="btn-hx-refresh">Refresh History</button>
+          <button class="secondary" id="btn-hx-export">Export CSV</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stat-card" style="max-height:260px; overflow:auto;">
