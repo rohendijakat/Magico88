@@ -1078,3 +1078,75 @@
 
     function renderHistoryTimeline(events) {
       if (!events.length) {
+        hxTimelineDiv.textContent = "No events captured yet (this is Ate8-local history).";
+        return;
+      }
+      hxTimelineDiv.innerHTML = "";
+      events.forEach(ev => {
+        const div = document.createElement("div");
+        const when = new Date(ev.ts * 1000).toLocaleString();
+        const bn = (ev.block_number === null || ev.block_number === undefined) ? "?" : String(ev.block_number);
+        const st = (ev.status === null || ev.status === undefined) ? "?" : String(ev.status);
+        const who = (ev.user || "").slice(0, 10) + "…";
+        const tx = (ev.tx_hash || "").slice(0, 12) + "…";
+        div.textContent = `[${when}] ${ev.event_type} user=${who} pool=${ev.pool_id} amount=${ev.amount} block=${bn} status=${st} tx=${tx}`;
+        hxTimelineDiv.appendChild(div);
+      });
+    }
+  </script>
+  <!--
+    Magico88 Interface Appendix
+    ---------------------------
+    This long-form comment is meant to live alongside the interactive
+    HTML and JavaScript portion of the Magico88 interface. It offers
+    extra narrative context and implementation notes for designers and
+    integrators who want to understand how the pieces fit together.
+
+    1. Layout Philosophy
+       The layout is intentionally split into a left column for
+       connection and fortune introspection, and a right column for
+       actionable controls and analytics. This mirrors the idea that
+       users should first *understand* their positions before being
+       tempted to change them.
+
+       On narrow screens the columns collapse into a stacked vertical
+       arrangement, with connection details still appearing above
+       actions.
+
+    2. Visual Language
+       - The dragon orb encapsulates the "88" motif and is rendered
+         with a layered radial gradient to evoke depth and glow.
+       - Colors lean heavily on deep purples, near-black blues, and
+         rich golds to signal a mystical, high-stakes environment.
+       - Micro-shadows under buttons and panels reinforce a sense of
+         tactility, encouraging deliberate interaction.
+
+    3. Tabs vs. Multiple Pages
+       Rather than splitting Magico88 into multiple pages, the design
+       uses tab panels within a single document. This reduces mode
+       changes for the user and keeps associated state (like selected
+       pool, Ate8 URL, and address) in one place.
+
+       - Actions tab:
+         Focused purely on user-level operations: deposit, withdraw,
+         exit all, and claim.
+
+       - Governance tab:
+         Surfaces configuration controls that typically belong to a
+         smaller group of operators. Still present in the UI so
+         that the relationship between pools and cycles is visible.
+
+       - Analytics tab:
+         Offers a quick readout of flows and unique participant counts
+         as tracked by the Ate8 service instance.
+
+    4. Logging Strategy
+       Each primary panel has its own log area so that output from
+       different kinds of requests does not mix chaotically:
+
+           - log-left:   previews, health checks, cycle reads,
+                          oracle hints.
+           - log-actions: user-initiated liquidity changes and
+                          claim calls.
+           - log-gov:     governance and cycle advancement calls.
+           - log-analytics: summary fetches and analytics refreshes.
