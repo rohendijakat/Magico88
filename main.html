@@ -214,3 +214,75 @@
       gap: 0.7rem;
     }
     .stat-card {
+      border-radius: 0.9rem;
+      padding: 0.6rem 0.7rem;
+      background: radial-gradient(circle at top left, rgba(255, 204, 51, 0.13), rgba(15, 4, 24, 0.96));
+      border: 1px solid rgba(111, 61, 152, 0.9);
+      font-size: 0.8rem;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.18rem;
+    }
+    .stat-value {
+      font-size: 0.9rem;
+    }
+    .fortune-display {
+      margin-top: 0.75rem;
+      border-radius: 0.75rem;
+      padding: 0.6rem 0.7rem;
+      background: radial-gradient(circle at 20% 0, rgba(255, 204, 51, 0.22), rgba(6, 1, 22, 0.98));
+      border: 1px solid rgba(255, 204, 51, 0.45);
+      font-size: 0.84rem;
+    }
+    .fortune-display strong { color: var(--accent); }
+    pre.log {
+      margin: 0.6rem 0 0;
+      background: rgba(4, 0, 15, 0.98);
+      border-radius: 0.7rem;
+      padding: 0.52rem 0.6rem;
+      font-size: 0.72rem;
+      max-height: 170px;
+      overflow: auto;
+      border: 1px solid rgba(70, 36, 95, 0.95);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(143, 93, 212, 0.9);
+      background: transparent;
+      color: var(--muted);
+      padding: 0.25rem 0.7rem;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: linear-gradient(145deg, var(--purple), #ff7b00);
+      color: #180203;
+      border-color: transparent;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 204, 51, 0.3), transparent);
+      margin: 0.6rem 0;
+    }
+    footer {
+      padding: 0.6rem 2rem 1rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
