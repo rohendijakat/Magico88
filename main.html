@@ -790,3 +790,75 @@
             body: JSON.stringify({
               pool_id: poolId,
               amount_wei: amount,
+              from_key: key,
+            }),
+          },
+          logActions
+        );
+      } catch (_) {}
+    });
+
+    btnWithdraw.addEventListener("click", async () => {
+      const poolId = Number(poolIdInput.value || 0);
+      const amount = Number(amountWeiInput.value || 0);
+      const key = userKeyInput.value.trim();
+      if (!key || !key.startsWith("0x")) {
+        alert("Provide a user private key.");
+        return;
+      }
+      try {
+        await callAte8(
+          "/user/withdraw",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              pool_id: poolId,
+              amount_wei: amount,
+              from_key: key,
+            }),
+          },
+          logActions
+        );
+      } catch (_) {}
+    });
+
+    btnExitAll.addEventListener("click", async () => {
+      const poolId = Number(poolIdInput.value || 0);
+      const key = userKeyInput.value.trim();
+      if (!key || !key.startsWith("0x")) {
+        alert("Provide a user private key.");
+        return;
+      }
+      try {
+        await callAte8(
+          "/user/exit-all",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              pool_id: poolId,
+              from_key: key,
+            }),
+          },
+          logActions
+        );
+      } catch (_) {}
+    });
+
+    btnClaim.addEventListener("click", async () => {
+      const poolId = Number(poolIdInput.value || 0);
+      const key = userKeyInput.value.trim();
+      const to = claimToInput.value.trim();
+      if (!key || !key.startsWith("0x")) {
+        alert("Provide a user private key.");
+        return;
+      }
+      if (!to || !to.startsWith("0x")) {
+        alert("Provide a destination address for claim.");
+        return;
+      }
+      try {
+        await callAte8(
+          "/user/claim-fortune",
+          {
+            method: "POST",
+            body: JSON.stringify({
