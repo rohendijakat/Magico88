@@ -70,3 +70,75 @@
     }
     .logo-sub {
       font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .badge {
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 204, 51, 0.4);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .status-dot {
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px rgba(68, 221, 136, 0.9);
+    }
+    .status-dot.off {
+      background: #666;
+      box-shadow: none;
+    }
+    main {
+      flex: 1;
+      padding: 0.75rem 2rem 1.4rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 3.1fr);
+      gap: 1.2rem;
+    }
+    @media (max-width: 1080px) {
+      main { grid-template-columns: minmax(0, 1fr); }
+    }
+    .panel {
+      background: linear-gradient(145deg, rgba(25, 8, 45, 0.96), rgba(8, 2, 24, 0.95));
+      border-radius: 1.15rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 16px 32px rgba(0, 0, 0, 0.75),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .panel-header h2 {
+      margin: 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    .panel-tagline {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .field-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .field-row {
